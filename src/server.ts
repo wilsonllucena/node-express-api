@@ -4,7 +4,6 @@ dotenv.config();
 import { Server } from '@overnightjs/core';
 import { Application } from 'express';
 import bodyParser from 'body-parser';
-
 export class SetupServer extends Server {
   /*
    * same as this.port = port, declaring as private here will

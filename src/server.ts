@@ -1,18 +1,19 @@
+import 'reflect-metadata';
 import './util/module-alias';
-import * as dotenv from 'dotenv'; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
-dotenv.config();
 import { Server } from '@overnightjs/core';
 import { Application } from 'express';
 import bodyParser from 'body-parser';
 import { TestController } from './controllers/test.controller';
+import cors from 'cors';
 import logger from './logger';
+import { resolveError } from './util/middlewares/resolve-error';
 
 export class SetupServer extends Server {
   /*
    * same as this.port = port, declaring as private here will
    * add the port variable to the SetupServer instance
    */
-  constructor(private port = process.env.PORT || 3001) {
+  constructor(private port = 3001) {
     super();
   }
 
@@ -22,10 +23,11 @@ export class SetupServer extends Server {
    */
   public async init(): Promise<void> {
     this.setupExpress();
-    this.setupControllers();
   }
 
   private setupExpress(): void {
+    this.app.use(cors());
+    this.app.use(resolveError);
     this.app.use(bodyParser.json());
     this.setupControllers();
   }

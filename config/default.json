@@ -10,7 +10,11 @@
     },
     "logger": {
       "enabled": true,
-      "level": "info"
+      "level": "info",
+      "prettyPrint": {
+        "levelFirst": true,
+        "colorize": true
+      }
     }
   }
 }

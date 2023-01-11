@@ -4,6 +4,9 @@ dotenv.config();
 import { Server } from '@overnightjs/core';
 import { Application } from 'express';
 import bodyParser from 'body-parser';
+import { TestController } from './controllers/test.controller';
+import logger from './logger';
+
 export class SetupServer extends Server {
   /*
    * same as this.port = port, declaring as private here will
@@ -28,11 +31,21 @@ export class SetupServer extends Server {
   }
 
   private setupControllers(): void {
-    // const forecastController = new ForecastController();
-    // this.addControllers([forecastController]);
+    const testController = new TestController();
+    this.addControllers([testController]);
   }
 
   public getApp(): Application {
     return this.app;
+  }
+
+  // public async close(): Promise<void> {
+  //   await database.close();
+  // }
+
+  public start(): void {
+    this.app.listen(this.port, () => {
+      logger.info('Server listening on port: ' + this.port);
+    });
   }
 }

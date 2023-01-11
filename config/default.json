@@ -1,0 +1,16 @@
+{
+  "App": {
+    "port": 3001,
+    "database": {
+      "mongoUrl": "mongodb://localhost:27017/surf-forecast"
+    },
+    "auth": {
+      "key": "some-key",
+      "tokenExpiresIn": "20000000"
+    },
+    "logger": {
+      "enabled": true,
+      "level": "info"
+    }
+  }
+}

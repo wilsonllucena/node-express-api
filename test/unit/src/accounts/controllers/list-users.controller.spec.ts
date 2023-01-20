@@ -15,9 +15,8 @@ describe('UserController', () => {
 
   describe('index', () => {
     test('should index return list data ', async () => {
-   
       const httpResponse = await sut.handle();
-      const expected = { message: 'List users' };
+      const expected = { data: [] };
       expect(httpResponse.statusCode).toBe(200);
       expect(httpResponse.body).toEqual(expected);
     });

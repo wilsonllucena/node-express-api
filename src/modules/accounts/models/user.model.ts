@@ -1,9 +1,8 @@
-import { Role } from "./enums/role";
 
 export interface User {
     id?: number;
     name: string;
-    role: Role;
+    role: 'ADMIN' | 'CUSTOMER' | 'USER_CUSTOMER' | 'USER';
     email: string;
-    password: string;
+    password?: string;
 }

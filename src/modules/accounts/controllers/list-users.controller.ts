@@ -6,8 +6,8 @@ import {
 
 export class ListUserController extends BaseController {
   async handle(): Promise<HttpResponse> {
-    return  success({
-      message: 'List users',
-    });
+    return success(
+      { data: [] }
+    );
   }
 }

@@ -1,4 +1,5 @@
 import config from 'config';
+import 'reflect-metadata';
 
 (async (): Promise<void> => {
   const app = (await import('./config/app')).default;

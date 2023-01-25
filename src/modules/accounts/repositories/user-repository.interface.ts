@@ -1,6 +1,6 @@
 import {UserDTO} from "../dtos/user.dto";
 
-export interface IUserRepository {
+export interface UserRepository {
   create(data: any): Promise<UserDTO>;
   findByEmail(email: string): Promise<UserDTO | null>;
   findById(id: number): Promise<UserDTO | null>;

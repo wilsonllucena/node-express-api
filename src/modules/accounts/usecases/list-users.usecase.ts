@@ -1,13 +1,14 @@
+import { injectable } from "tsyringe";
 import { UserDTO } from "../dtos/user.dto";
-import { IUserRepository } from "../repositories/user-repository.interface";
+import { UserRepository } from "../repositories/user-repository.interface";
 import { ListUsers } from "./users.interface";
 
+@injectable()
 export class ListUsersUseCase implements ListUsers {
-  constructor(private usersRepository: IUserRepository) {}
+  constructor(private usersRepository: UserRepository) {}
 
   async execute(): Promise<UserDTO[]> {
     const users = await this.usersRepository.list();
-
     return users;
   }
 }

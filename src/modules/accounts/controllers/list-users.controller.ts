@@ -13,9 +13,6 @@ export class ListUserController extends BaseController {
 
   async handle(): Promise<HttpResponse> {
     const result = await this.listUsersUseCase.execute();
-
-    return success(
-      { data: result }
-    );
+    return success(result);
   }
 }

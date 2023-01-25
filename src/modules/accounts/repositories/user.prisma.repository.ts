@@ -1,9 +1,11 @@
 import { PrismaClient } from '@prisma/client';
+import { container } from 'tsyringe';
 import { UserDTO } from '../dtos/user.dto';
-import { IUserRepository } from './user-repository.interface';
+import { UserRepository } from './user-repository.interface';
 
-export default class UserRepository implements IUserRepository {
-  constructor(public prismaService: PrismaClient) {}
+export default class UserPrismaRepository implements UserRepository {
+  private prismaService = container.resolve(PrismaClient);
+
   async findByEmail(email: string): Promise<UserDTO | null> {
     return await this.prismaService.user.findUnique({ where: { email } });
   }

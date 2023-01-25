@@ -1,10 +1,9 @@
 import sinon from 'sinon';
 import { ListUserController } from '@src/modules/accounts/controllers/list-users.controller';
-import UserRepository from '@src/modules/accounts/repositories/user.repository';
-import { ListUsersUseCase } from '@src/modules/accounts/usecases/list-users.usecase';
 import { UserDTO } from '@src/modules/accounts/dtos/user.dto';
 import { userMock } from '@test/unit/mocks/user.mock';
 import { Context, createMockContext } from '@test/unit/mocks/prisma.mock';
+import ListUsersUseCaseMock from '../mocks/list-users-usecase.mock';
 
 describe('UserController', () => {
   let sandbox = {} as sinon.SinonSandbox;
@@ -15,34 +14,32 @@ describe('UserController', () => {
     sandbox = sinon.createSandbox();
   });
 
-  let prismaContext = fakePrismaContext;
-
-  const userRepository = new UserRepository(prismaContext.prisma);
-  const listUsersUseCase = new ListUsersUseCase(userRepository);
+  const listUsersUseCase = ListUsersUseCaseMock;
   const sut = new ListUserController(listUsersUseCase);
   afterEach(() => {
     sandbox.restore();
+    jest.clearAllMocks();
   });
 
   describe('index', () => {
     test('should index return list data ', async () => {
       const users = [userMock] as UserDTO[];
-
-      jest.spyOn(listUsersUseCase, 'execute').mockResolvedValueOnce(users);
+      const listUserUseCaseSpy = jest
+        .spyOn(listUsersUseCase, 'execute')
+        .mockResolvedValue(users);
       const httpResponse = await sut.handle();
-
       const expected = users;
       expect(httpResponse.statusCode).toBe(200);
-      expect(httpResponse.body.data).toEqual(expected);
+      expect(listUserUseCaseSpy).toHaveBeenCalled();
+      expect(httpResponse.body).toEqual(expected);
     });
 
     test('should index return empty array ', async () => {
-      jest.spyOn(listUsersUseCase, 'execute').mockResolvedValueOnce([]);
+      const listUserUseCaseSpy = jest.spyOn(listUsersUseCase, 'execute').mockResolvedValue([]);
       const httpResponse = await sut.handle();
-
-      const expected = [] as UserDTO[];
       expect(httpResponse.statusCode).toBe(200);
-      expect(httpResponse.body.data).toEqual(expected);
+      expect(listUserUseCaseSpy).toHaveBeenCalled();
+      expect(httpResponse.body).toEqual([]);
     });
   });
 });

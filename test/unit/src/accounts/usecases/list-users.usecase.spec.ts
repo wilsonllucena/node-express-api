@@ -1,22 +1,17 @@
-import { ListUsersUseCase } from '@src/modules/accounts/usecases/list-users.usecase';
+import 'reflect-metadata';
+
 import sinon from 'sinon';
-// @ts-ignore
-import UsersRepository from '@src/modules/accounts/repositories/user.repository';
-import {
-  Context,
-  createMockContext,
-  MockContext,
-} from '@test/unit/mocks/prisma.mock';
+import { Context, createMockContext } from '@test/unit/mocks/prisma.mock';
 import { userMock } from '@test/unit/mocks/user.mock';
 import { UserDTO } from '@src/modules/accounts/dtos/user.dto';
+import userRepositoryMock from '../mocks/user-repository.mock';
+import { ListUsersUseCase } from '@src/modules/accounts/usecases/list-users.usecase';
 
 describe('ListUsersUseCase', () => {
   let sandbox = {} as sinon.SinonSandbox;
-  let fakePrismaContext = {} as unknown as Context;
-  let usersRepository = {} as UsersRepository;
+  let usersRepository = userRepositoryMock;
 
   beforeEach(() => {
-    fakePrismaContext = createMockContext();
     sandbox = sinon.createSandbox();
   });
 
@@ -24,9 +19,6 @@ describe('ListUsersUseCase', () => {
     sandbox.restore();
   });
 
-  let prismaContext = fakePrismaContext;
-  
-  usersRepository = new UsersRepository(prismaContext.prisma);
   const sut = new ListUsersUseCase(usersRepository);
 
   describe('ListUsers', () => {

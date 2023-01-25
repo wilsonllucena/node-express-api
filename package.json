@@ -9,13 +9,12 @@
     "start:dev": "ts-node-dev --transpile-only src/main.ts",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
-    "test:staged": "npm test --findRelatedTests",
+    "test:staged": "npm test -c --findRelatedTests",
     "test:ci": "npm test --coverage",
-    "test:e2e": "jest --projects ./test --forceExit --runInBand",
-    "test:unit": "jest --watch",
+    "test:unit": "npm test",
     "style:check": "prettier --check 'src/**/*.ts' 'test/**/*.ts'",
     "style:fix": "prettier --write 'src/**/*.ts' 'test/**/*.ts'",
-    "test": "jest"
+    "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --watchAll "
   },
   "keywords": [
     "node",
@@ -63,6 +62,7 @@
     "eslint": "^8.31.0",
     "git-commit-msg-linter": "^4.5.0",
     "husky": "^8.0.3",
+    "jest-mock-extended": "^3.0.1",
     "lint-staged": "^13.1.0",
     "pino-pretty": "^9.1.1",
     "prisma": "^4.8.1",

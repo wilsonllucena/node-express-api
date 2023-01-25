@@ -1,9 +1,9 @@
-import { User } from "../entity/user.entity";
+import {UserDTO} from "../dtos/user.dto";
 
 export interface IUserRepository {
-    create(data: any): Promise<User>;
-    findByEmail(email: string): Promise<User>;
-    findById(id: string): Promise<User>;
-    list(): Promise<User[]>;
-    save(user: User): Promise<User>;
+  create(data: any): Promise<UserDTO>;
+  findByEmail(email: string): Promise<UserDTO | null>;
+  findById(id: number): Promise<UserDTO | null>;
+  list(): Promise<UserDTO[]>;
+  update(id: number, user: UserDTO): Promise<UserDTO>;
 }

@@ -1,23 +1,27 @@
-import { User } from "../entity/user.entity";
-import { IUserRepository } from "./user-repository.interface";
+import { PrismaClient } from '@prisma/client';
+import { UserDTO } from '../dtos/user.dto';
+import { IUserRepository } from './user-repository.interface';
 
 export default class UserRepository implements IUserRepository {
-    create(data: any): Promise<User> {
-        throw new Error("Method not implemented.");
-    }
-    findByEmail(email: string): Promise<User> {
-        throw new Error("Method not implemented.");
-    }
-    findById(id: string): Promise<User> {
-        throw new Error("Method not implemented.");
-    }
-    list(): Promise<User[]> {
-        const user = new User(1, 'John Doe', 'ADMIN', 'john.doe@gmail.com', '123456');
+  constructor(public prismaService: PrismaClient) {}
+  async findByEmail(email: string): Promise<UserDTO | null> {
+    return await this.prismaService.user.findUnique({ where: { email } });
+  }
+  async findById(id: number): Promise<UserDTO | null> {
+    return await this.prismaService.user.findFirst({
+      where: { id },
+    });
+  }
 
-        return new Promise((resolve) => resolve([user]) as any);
-    }
-    save(user: User): Promise<User> {
-        throw new Error("Method not implemented.");
-    }
+  async list(): Promise<UserDTO[]> {
+    return await this.prismaService.user.findMany();
+  }
 
+  async create(data: UserDTO): Promise<UserDTO> {
+    return await this.prismaService.user.create({ data });
+  }
+
+  async update(id: number, user: UserDTO): Promise<UserDTO> {
+    return await this.prismaService.user.update({ where: { id }, data: user });
+  }
 }

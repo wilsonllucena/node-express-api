@@ -1,5 +1,5 @@
-import { User } from "../entity/user.entity";
+import { UserDTO } from "../dtos/user.dto";
 
 export interface ListUsers {
-    execute(): Promise<User[]>;
+    execute(): Promise<UserDTO[]>;
 }

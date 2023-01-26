@@ -1,7 +1,5 @@
 import 'reflect-metadata';
-
 import sinon from 'sinon';
-import { Context, createMockContext } from '@test/unit/mocks/prisma.mock';
 import { userMock } from '@test/unit/mocks/user.mock';
 import { UserDTO } from '@src/modules/accounts/dtos/user.dto';
 import userRepositoryMock from '../mocks/user-repository.mock';
@@ -24,7 +22,6 @@ describe('ListUsersUseCase', () => {
   describe('ListUsers', () => {
     test('should return a list of users', async () => {
       const users = [userMock] as UserDTO[];
-
       sandbox.stub(usersRepository, 'list').resolves(users);
       const result = await sut.execute();
       expect(result).toEqual(users);

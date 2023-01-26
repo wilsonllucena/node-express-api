@@ -3,7 +3,7 @@ import { container } from 'tsyringe';
 import { UserDTO } from '../dtos/user.dto';
 import { UserRepository } from './user-repository.interface';
 
-export default class UserPrismaRepository implements UserRepository {
+export class UserPrismaRepository implements UserRepository {
   private prismaService = container.resolve(PrismaClient);
 
   async findByEmail(email: string): Promise<UserDTO | null> {

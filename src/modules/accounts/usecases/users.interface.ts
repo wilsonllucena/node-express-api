@@ -1,3 +1,4 @@
+import { injectable } from "tsyringe";
 import { UserDTO } from "../dtos/user.dto";
 
 export interface ListUsers {

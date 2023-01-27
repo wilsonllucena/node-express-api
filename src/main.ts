@@ -1,5 +1,4 @@
 import config from 'config';
-
 (async (): Promise<void> => {
   const app = (await import('./config/app')).default;
   app.listen(config.get('App.port'), () =>

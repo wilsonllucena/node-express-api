@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "yarn build && node dist/src/main.js",
-    "start:dev": "ts-node-dev --transpile-only src/main.ts",
+    "start:dev": "ts-node-dev  -r tsconfig-paths/register --inspect --ignore-watch node_modules --transpile-only src/main.ts",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
     "test:staged": "npm test -c --findRelatedTests",
@@ -41,6 +41,7 @@
     "pino-http": "^8.3.1",
     "reflect-metadata": "^0.1.13",
     "sinon": "^15.0.1",
+    "tsconfig-paths": "^4.1.2",
     "tsyringe": "^4.7.0"
   },
   "devDependencies": {

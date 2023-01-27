@@ -1,16 +1,14 @@
+import 'reflect-metadata';
 import sinon from 'sinon';
 import { ListUserController } from '@src/modules/accounts/controllers/list-users.controller';
 import { UserDTO } from '@src/modules/accounts/dtos/user.dto';
 import { userMock } from '@test/unit/mocks/user.mock';
-import { Context, createMockContext } from '@test/unit/mocks/prisma.mock';
 import ListUsersUseCaseMock from '../mocks/list-users-usecase.mock';
 
 describe('UserController', () => {
   let sandbox = {} as sinon.SinonSandbox;
-  let fakePrismaContext = {} as unknown as Context;
 
   beforeEach(() => {
-    fakePrismaContext = createMockContext();
     sandbox = sinon.createSandbox();
   });
 
@@ -35,7 +33,9 @@ describe('UserController', () => {
     });
 
     test('should index return empty array ', async () => {
-      const listUserUseCaseSpy = jest.spyOn(listUsersUseCase, 'execute').mockResolvedValue([]);
+      const listUserUseCaseSpy = jest
+        .spyOn(listUsersUseCase, 'execute')
+        .mockResolvedValue([]);
       const httpResponse = await sut.handle();
       expect(httpResponse.statusCode).toBe(200);
       expect(listUserUseCaseSpy).toHaveBeenCalled();

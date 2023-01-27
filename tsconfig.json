@@ -12,6 +12,7 @@
     "strictFunctionTypes": true,
     "noImplicitThis": true,
     "resolveJsonModule": true,
+    "strictPropertyInitialization": false,
     "alwaysStrict": true,
     "removeComments": true,
     "noImplicitReturns": true,
@@ -21,6 +22,7 @@
     "types": ["node", "jest"],
     "paths": {
       "@src/*": ["./src/*"],
+      "@shared/*": ["./src/shared/*"],
       "@test/*": ["./test/*"]
     },
     "rootDirs": ["./src", "./test"],

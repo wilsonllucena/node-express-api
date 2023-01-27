@@ -1,3 +1,4 @@
+import { inject } from 'tsyringe';
 import { success } from '../../../shared/helpers';
 import {
   BaseController,
@@ -5,11 +6,10 @@ import {
 } from '../../../shared/protocols';
 import { ListUsers } from '../usecases/users.interface';
 
-export class ListUserController extends BaseController {
-
-  constructor(private listUsersUseCase: ListUsers) {
-    super();
-  }
+export class ListUserController implements BaseController {
+  constructor(
+    @inject('listUsersUseCase') private readonly listUsersUseCase: ListUsers
+  ) {}
 
   async handle(): Promise<HttpResponse> {
     const result = await this.listUsersUseCase.execute();

@@ -1,4 +1,5 @@
-import { UserRepository } from "@src/modules/accounts/repositories/user-repository.interface";
+import 'reflect-metadata';
+import { UserRepository } from '@src/modules/accounts/repositories/user-repository.interface';
 
 const userRepositoryMock: UserRepository = {
   create: jest.fn(),

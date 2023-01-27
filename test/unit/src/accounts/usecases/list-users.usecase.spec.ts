@@ -1,4 +1,3 @@
-import 'reflect-metadata';
 import sinon from 'sinon';
 import { userMock } from '@test/unit/mocks/user.mock';
 import { UserDTO } from '@src/modules/accounts/dtos/user.dto';

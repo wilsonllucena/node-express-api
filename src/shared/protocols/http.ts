@@ -1,4 +1,3 @@
-import { Response } from "express";
 
 export interface HttpResponse   {
   statusCode: number;
@@ -6,5 +5,7 @@ export interface HttpResponse   {
 }
 
 export interface HttpRequest {
+  query?: any;
+  params?: any;
   body?: any;
 }

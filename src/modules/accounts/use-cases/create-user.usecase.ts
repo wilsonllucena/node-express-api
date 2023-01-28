@@ -1,5 +1,6 @@
 import { left, right } from '@src/shared/errors/either';
 import { AppError } from '@src/shared/util/app-error';
+import { httpStatus } from '@src/shared/util/http-status-code';
 import { inject, injectable } from 'tsyringe';
 import { UserInputDTO } from '../dtos/user.dto';
 import { UserRepository } from '../repositories/user-repository.interface';
@@ -19,10 +20,10 @@ export class CreateUserUseCase implements CreateUser {
       );
 
       if (documentExists)
-        return left(new AppError('Documento já cadastrado', 400));
+        return left(new AppError('Documento já cadastrado', httpStatus.CONFLICT));
     }
     if (userExists) {
-      return left(new AppError('Email já cadastrado', 400));
+      return left(new AppError('Email já cadastrado', httpStatus.CONFLICT));
     }
 
     const result = await this.usersRepository.create(user);

@@ -4,7 +4,7 @@ import {
   BaseController,
   HttpResponse,
 } from '../../../shared/protocols';
-import { ListUsers } from '../use-cases/users.interface';
+import { ListUsers } from '../use-cases/interfaces/list-users.interface';
 
 export class ListUserController implements BaseController {
   constructor(

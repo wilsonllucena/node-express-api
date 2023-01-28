@@ -1,4 +1,4 @@
-import { Request } from 'express';
+import { httpStatus } from '@src/shared/util/http-status-code';
 import { inject } from 'tsyringe';
 import { badRequest, success } from '../../../shared/helpers';
 import {
@@ -13,11 +13,16 @@ export class UpdateUserController implements BaseController {
     @inject('UpadateUser') private readonly updateUserUseCase: UpdateUser
   ) {}
 
-  async handle(data: HttpRequest): Promise<HttpResponse> {
-    const response = await this.updateUserUseCase.execute(data.body.id, data.body);
+  async handle(request: HttpRequest): Promise<HttpResponse> {
+    const { params, body } = request;
+    const { id } = params;
+    const response = await this.updateUserUseCase.execute(
+      Number(id),
+      body
+    );
     if (response.isLeft()) {
-      return badRequest(response.value, 400);
+      return badRequest(response.value);
     }
-    return success();
+    return success(response.value, httpStatus.OK);
   }
 }

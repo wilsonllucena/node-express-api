@@ -24,7 +24,7 @@ export class UserPrismaRepository implements UserRepository {
       return err;
     }
   }
-  
+
   async findByEmail(email: string): Promise<UserDTO | null> {
     return await this.prismaService.user.findUnique({ where: { email } });
   }
@@ -35,6 +35,11 @@ export class UserPrismaRepository implements UserRepository {
 
   async findById(id: number): Promise<UserDTO | null> {
     return await this.prismaService.user.findFirst({
+      where: { id },
+    });
+  }
+  async delete(id: number): Promise<any> {
+   return await this.prismaService.user.delete({
       where: { id },
     });
   }

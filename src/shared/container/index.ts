@@ -11,6 +11,8 @@ import { UpdateUserUseCase } from '@src/modules/accounts/use-cases/update-user.u
 import { PrismaClient } from '@prisma/client';
 import { GetUser } from '@src/modules/accounts/use-cases/interfaces/get-user.interface';
 import { GetUserByIdUseCase } from '@src/modules/accounts/use-cases/get-user.usecase';
+import { DeleteUser } from '@src/modules/accounts/use-cases/interfaces/delete-user.interface';
+import { DeleteUserByIdUseCase } from '@src/modules/accounts/use-cases/delete-user.usecase';
 
 // Prisma
 container.registerSingleton<PrismaClient>('PrismaClient', PrismaClient);
@@ -26,3 +28,4 @@ container.registerSingleton<ListUsers>('ListUsersUseCase', ListUsersUseCase);
 container.registerSingleton<CreateUser>('CreateUser', CreateUserUseCase);
 container.registerSingleton<UpdateUser>('UpdateUser', UpdateUserUseCase);
 container.registerSingleton<GetUser>('GetUser', GetUserByIdUseCase);
+container.registerSingleton<DeleteUser>('DeleteUser', DeleteUserByIdUseCase);

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "yarn build && node dist/src/main.js",
-    "start:dev": "ts-node-dev  -r tsconfig-paths/register --inspect --ignore-watch node_modules --transpile-only src/main.ts",
+    "start:dev": "ts-node-dev  -r tsconfig-paths/register --inspect --transpile-only src/main.ts",
     "lint": "eslint ./src ./test --ext .ts",
     "lint:fix": "eslint ./src ./test --ext .ts --fix",
     "test:staged": "npm test -c --findRelatedTests",
@@ -37,6 +37,7 @@
     "jest": "^29.3.1",
     "jsonwebtoken": "^9.0.0",
     "module-alias": "^2.2.2",
+    "nodemon": "^2.0.20",
     "pino": "^8.8.0",
     "pino-http": "^8.3.1",
     "reflect-metadata": "^0.1.13",

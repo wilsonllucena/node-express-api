@@ -6,6 +6,7 @@ const userRepositoryMock: UserRepository = {
   list: jest.fn(),
   findById: jest.fn(),
   findByEmail: jest.fn(),
+  findByDocument: jest.fn(),
   update: jest.fn(),
 };
 

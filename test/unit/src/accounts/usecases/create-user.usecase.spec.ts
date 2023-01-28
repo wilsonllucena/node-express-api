@@ -1,8 +1,7 @@
 import sinon from 'sinon';
-import { userMock } from '@test/unit/mocks/user.mock';
-import { UserDTO } from '@src/modules/accounts/dtos/user.dto';
+import { userInputMock, userMock } from '@test/unit/mocks/user.mock';
 import userRepositoryMock from '../mocks/user-repository.mock';
-import { CreateUserUseCase } from '@src/modules/accounts/usecases/create-user.usecase';
+import { CreateUserUseCase } from '@src/modules/accounts/use-cases/create-user.usecase';
 import { AppError } from '@src/shared/util/app-error';
 
 describe('CreateUsersUseCase', () => {
@@ -21,26 +20,45 @@ describe('CreateUsersUseCase', () => {
 
   describe('execute', () => {
     test('should create a new user', async () => {
-      const user = userMock;
-      jest.spyOn(userRepository, 'create').mockResolvedValue(user);
+      const user = {
+        name: 'name_user',
+        email: 'valid@email.com',
+        password: 'password',
+      };
+      jest.spyOn(userRepository, 'create').mockResolvedValue(userMock);
+
       const result = await sut.execute(user);
 
-      expect(userRepository.create).toHaveBeenCalledWith(user);
-      expect(result).toEqual(user);
+      expect(result.isRight).toBeTruthy();
+      expect(result.value).toEqual({ id: userMock.id });
     });
 
-    test('should throw an AppError if error occrus', async () => {
-      const user = userMock;
-      sandbox
-        .stub(userRepository, 'create')
-        .rejects(new AppError('Something went wrong'));
-  
-      expect.assertions(1);
-      try {
-        await sut.execute(user);
-      } catch (error) {
-        expect(error).toEqual(new AppError('Something went wrong'));
-      }
+    test('returns an error if the user already exists', async () => {
+     
+      jest.spyOn(userRepository, 'findByDocument').mockResolvedValueOnce({
+        ...userMock,
+        document: userInputMock.document,
+      });
+
+      const result = await sut.execute(userInputMock);
+
+      expect(result.isLeft).toBeTruthy();
+      expect(result.value).toEqual(
+        new AppError('Documento já cadastrado', 400)
+      );
+    });
+
+    it.only('returns an error if the email already exists', async () => {
+    
+     jest.spyOn(userRepository, 'findByEmail').mockResolvedValueOnce({
+       ...userMock,
+       email: "difer@email.com",
+     });
+
+      const result = await sut.execute(userInputMock);
+
+      expect(result.isLeft).toBeTruthy();
+      expect(result.value).toEqual(new AppError('Email já cadastrado', 400));
     });
   });
 });

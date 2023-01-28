@@ -2,7 +2,7 @@ import sinon from 'sinon';
 import { userMock } from '@test/unit/mocks/user.mock';
 import { UserDTO } from '@src/modules/accounts/dtos/user.dto';
 import userRepositoryMock from '../mocks/user-repository.mock';
-import { ListUsersUseCase } from '@src/modules/accounts/usecases/list-users.usecase';
+import { ListUsersUseCase } from '@src/modules/accounts/use-cases/list-users.usecase';
 
 describe('ListUsersUseCase', () => {
   let sandbox = {} as sinon.SinonSandbox;

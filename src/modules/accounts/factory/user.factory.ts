@@ -5,6 +5,8 @@ import { container } from 'tsyringe';
 import { ListUsersUseCase } from '../use-cases/list-users.usecase';
 import { CreateUserUseCase } from '../use-cases/create-user.usecase';
 import { CreateUserController } from '../controllers/create-user.controller';
+import { UpdateUserUseCase } from '../use-cases/update-user.usecase';
+import { UpdateUserController } from '../controllers/update-user.controller';
 
 export const makeListUserController = (): BaseController => {
   const listUsersUseCase = container.resolve(ListUsersUseCase);
@@ -15,5 +17,11 @@ export const makeListUserController = (): BaseController => {
 export const makeCreateUserController = (): BaseController => {
   const createUserUseCase = container.resolve(CreateUserUseCase);
   const controller = new CreateUserController(createUserUseCase);
+  return controller;
+};
+
+export const makeUpdateUserController = (): BaseController => {
+  const updateUserUseCase = container.resolve(UpdateUserUseCase);
+  const controller = new UpdateUserController(updateUserUseCase);
   return controller;
 };

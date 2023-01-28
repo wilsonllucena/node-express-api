@@ -1,7 +1,7 @@
 import { Prisma } from '@prisma/client';
 import PrismaService from '@src/shared/database/prismaClient';
 import { injectable } from 'tsyringe';
-import { UserDTO } from '../dtos/user.dto';
+import { UserDTO, UserInputDTO } from '../dtos/user.dto';
 import { UserRepository } from './user-repository.interface';
 
 
@@ -53,7 +53,7 @@ export class UserPrismaRepository implements UserRepository {
     });
   }
 
-  async update(id: number, user: UserDTO): Promise<UserDTO> {
+  async update(id: number, user: UserInputDTO): Promise<UserDTO> {
     return await this.prismaService.user.update({ where: { id }, data: user });
   }
 }

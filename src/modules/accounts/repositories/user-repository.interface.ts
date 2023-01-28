@@ -1,4 +1,4 @@
-import {UserDTO} from "../dtos/user.dto";
+import {UserDTO, UserInputDTO} from "../dtos/user.dto";
 
 export interface UserRepository {
   create(data: any): Promise<UserDTO>;
@@ -6,5 +6,5 @@ export interface UserRepository {
   findByDocument(document: string): Promise<UserDTO | null>;
   findById(id: number): Promise<UserDTO | null>;
   list(): Promise<UserDTO[]>;
-  update(id: number, user: UserDTO): Promise<UserDTO>;
+  update(id: number, user: UserInputDTO): Promise<UserDTO>;
 }

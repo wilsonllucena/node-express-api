@@ -48,7 +48,7 @@ describe('CreateUsersUseCase', () => {
       );
     });
 
-    it.only('returns an error if the email already exists', async () => {
+    test('returns an error if the email already exists', async () => {
     
      jest.spyOn(userRepository, 'findByEmail').mockResolvedValueOnce({
        ...userMock,

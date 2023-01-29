@@ -14,14 +14,14 @@ export class CreateUserUseCase implements CreateUser {
   async execute(user: UserInputDTO): Promise<ResponseCustom> {
     const userExists = await this.usersRepository.findByEmail(user.email);
 
-    if (user?.document) {
-      const documentExists = await this.usersRepository.findByDocument(
-        user?.document
-      );
+    const documentExists =
+      user?.document &&
+      (await this.usersRepository.findByDocument(user?.document));
 
-      if (documentExists)
-        return left(new AppError('Documento já cadastrado', httpStatus.CONFLICT));
+    if (documentExists){
+      return left(new AppError('Documento já cadastrado', httpStatus.CONFLICT));
     }
+
     if (userExists) {
       return left(new AppError('Email já cadastrado', httpStatus.CONFLICT));
     }
